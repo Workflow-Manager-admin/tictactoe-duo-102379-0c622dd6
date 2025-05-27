@@ -21,32 +21,31 @@ export const MainContainer = component$(() => {
   // Draw flag
   const draw = useSignal(false);
 
-  // Check for winner
-  const calculateWinner = (squares: string[]): string | null => {
-    const lines = [
-      [0,1,2],[3,4,5],[6,7,8], // Rows
-      [0,3,6],[1,4,7],[2,5,8], // Cols
-      [0,4,8],[2,4,6] // Diagnonals
-    ];
-    for (const [a,b,c] of lines) {
-      if (
-        squares[a] &&
-        squares[a] === squares[b] &&
-        squares[a] === squares[c]
-      ) {
-        return squares[a];
-      }
-    }
-    return null;
-  };
-
   // Handle square click
   const handleClick = $((idx: number) => {
     if (board.value[idx] || winner.value || draw.value) return;
     const squares = [...board.value];
     squares[idx] = xIsNext.value ? "X" : "O";
     board.value = squares;
-    const win = calculateWinner(squares);
+
+    // Inline winner calculation logic
+    const lines = [
+      [0,1,2],[3,4,5],[6,7,8], // Rows
+      [0,3,6],[1,4,7],[2,5,8], // Cols
+      [0,4,8],[2,4,6] // Diagonals
+    ];
+    let win: string | null = null;
+    for (const [a,b,c] of lines) {
+      if (
+        squares[a] &&
+        squares[a] === squares[b] &&
+        squares[a] === squares[c]
+      ) {
+        win = squares[a];
+        break;
+      }
+    }
+
     if (win) {
       winner.value = win;
     } else if (!squares.includes("")) {
