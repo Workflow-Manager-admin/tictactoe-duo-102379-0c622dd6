@@ -5,10 +5,19 @@ import Counter from "../components/starter/counter/counter";
 import Hero from "../components/starter/hero/hero";
 import Infobox from "../components/starter/infobox/infobox";
 import Starter from "../components/starter/next-steps/next-steps";
+import MainContainer from "../components/tictactoe/main-container";
 
+/**
+ * The main index route now displays the TicTacToe Duo game at the top.
+ */
 export default component$(() => {
   return (
     <>
+      {/* Render the TicTacToe Duo game */}
+      <MainContainer />
+
+      {/* The rest of the original demo content is left below for reference or to keep sample features */}
+      {/* You may remove the below if you want a minimal TicTacToe-app-only page */}
       <Hero />
       <Starter />
 
